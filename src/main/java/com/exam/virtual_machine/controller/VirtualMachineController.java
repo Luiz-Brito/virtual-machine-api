@@ -35,4 +35,12 @@ public class VirtualMachineController {
 
         return ResponseEntity.ok().body(list);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<VirtualMachineDTO> findById(@PathVariable Long id) {
+        final VirtualMachine virtualMachineFound = virtualMachineService.findById(id);
+        final VirtualMachineDTO virtualMachineDTO = virtualMachineAdapter.toVirtualMachineDTO(virtualMachineFound);
+
+        return ResponseEntity.ok().body(virtualMachineDTO);
+    }
 }

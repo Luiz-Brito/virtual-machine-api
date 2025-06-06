@@ -20,4 +20,8 @@ public class VirtualMachineService {
     public List<VirtualMachine> findAll() {
         return virtualMachineRepository.findAll();
     }
+
+    public VirtualMachine findById(Long id) {
+        return virtualMachineRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
 }
