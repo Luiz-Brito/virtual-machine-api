@@ -2,15 +2,15 @@ package com.exam.virtual_machine.controller;
 
 import com.exam.virtual_machine.adapter.VirtualMachineAdapter;
 import com.exam.virtual_machine.dto.VirtualMachineCreateDTO;
+import com.exam.virtual_machine.dto.VirtualMachineDTO;
 import com.exam.virtual_machine.entity.VirtualMachine;
 import com.exam.virtual_machine.service.VirtualMachineService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -26,5 +26,13 @@ public class VirtualMachineController {
         virtualMachineService.save(virtualMachine);
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<VirtualMachineDTO>> list() {
+        final List<VirtualMachine> virtualMachines = virtualMachineService.findAll();
+        final List<VirtualMachineDTO> list = virtualMachines.stream().map(virtualMachineAdapter::toVirtualMachineDTO).toList();
+
+        return ResponseEntity.ok().body(list);
     }
 }
