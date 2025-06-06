@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class VirtualMachineCreateDTO {
+public class VirtualMachineRequestDTO {
 
     @NotBlank
     @Size(min = 5)

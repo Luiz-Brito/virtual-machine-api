@@ -1,8 +1,8 @@
 package com.exam.virtual_machine.controller;
 
 import com.exam.virtual_machine.adapter.VirtualMachineAdapter;
-import com.exam.virtual_machine.dto.VirtualMachineCreateDTO;
 import com.exam.virtual_machine.dto.VirtualMachineDTO;
+import com.exam.virtual_machine.dto.VirtualMachineRequestDTO;
 import com.exam.virtual_machine.entity.VirtualMachine;
 import com.exam.virtual_machine.service.VirtualMachineService;
 import jakarta.validation.Valid;
@@ -21,8 +21,8 @@ public class VirtualMachineController {
     private final VirtualMachineAdapter virtualMachineAdapter;
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Valid VirtualMachineCreateDTO virtualMachineCreateDTO) {
-        final VirtualMachine virtualMachine = virtualMachineAdapter.toVirutalMachine(virtualMachineCreateDTO);
+    public ResponseEntity<Void> save(@RequestBody @Valid VirtualMachineRequestDTO virtualMachineRequestDTO) {
+        final VirtualMachine virtualMachine = virtualMachineAdapter.toVirutalMachine(virtualMachineRequestDTO);
         virtualMachineService.save(virtualMachine);
 
         return ResponseEntity.ok().build();
@@ -42,5 +42,14 @@ public class VirtualMachineController {
         final VirtualMachineDTO virtualMachineDTO = virtualMachineAdapter.toVirtualMachineDTO(virtualMachineFound);
 
         return ResponseEntity.ok().body(virtualMachineDTO);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable("id") Long id,
+                                       @RequestBody @Valid VirtualMachineRequestDTO newVirtualMachine) {
+
+        virtualMachineService.update(id, newVirtualMachine);
+
+        return ResponseEntity.noContent().build();
     }
 }
