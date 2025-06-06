@@ -37,7 +37,7 @@ public class VirtualMachineController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<VirtualMachineDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<VirtualMachineDTO> findById(@PathVariable("id") Long id) {
         final VirtualMachine virtualMachineFound = virtualMachineService.findById(id);
         final VirtualMachineDTO virtualMachineDTO = virtualMachineAdapter.toVirtualMachineDTO(virtualMachineFound);
 
@@ -51,5 +51,12 @@ public class VirtualMachineController {
         virtualMachineService.update(id, newVirtualMachine);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+        virtualMachineService.delete(id);
+
+        return ResponseEntity.ok().build();
     }
 }
