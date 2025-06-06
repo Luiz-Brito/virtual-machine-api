@@ -1,0 +1,17 @@
+package com.exam.virtual_machine.service;
+
+import com.exam.virtual_machine.entity.VirtualMachine;
+import com.exam.virtual_machine.repository.VirtualMachineRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class VirtualMachineService {
+
+    private final VirtualMachineRepository virtualMachineRepository;
+
+    public void save(VirtualMachine virtualMachine) {
+        virtualMachineRepository.save(virtualMachine);
+    }
+}
