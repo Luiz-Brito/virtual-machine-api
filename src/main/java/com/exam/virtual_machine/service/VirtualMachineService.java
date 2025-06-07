@@ -1,8 +1,8 @@
 package com.exam.virtual_machine.service;
 
-import com.exam.virtual_machine.dto.VirtualMachineUpdateDTO;
 import com.exam.virtual_machine.entity.VirtualMachine;
 import com.exam.virtual_machine.enums.Status;
+import com.exam.virtual_machine.exceptions.VirtualMachineNotFound;
 import com.exam.virtual_machine.repository.VirtualMachineRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class VirtualMachineService {
     }
 
     public VirtualMachine findById(Long id) {
-        return virtualMachineRepository.findById(id).orElseThrow(RuntimeException::new);
+        return virtualMachineRepository.findById(id).orElseThrow(VirtualMachineNotFound::new);
     }
 
     public void update(VirtualMachine virtualMachine, Status status) {
@@ -33,18 +33,12 @@ public class VirtualMachineService {
         virtualMachineFound.setCpu(virtualMachine.getCpu());
         virtualMachineFound.setMemory(virtualMachine.getMemory());
         virtualMachineFound.setDisc(virtualMachine.getDisc());
-
-        updateStatus(virtualMachineFound.getId(), status);
+        virtualMachineFound.setStatus(status);
 
         virtualMachineRepository.save(virtualMachineFound);
     }
 
     public void delete(Long id) {
-        virtualMachineRepository.deleteById(id);
-    }
-
-    public void updateStatus(Long id, Status status) {
-        final VirtualMachine virtualMachine = findById(id);
-        virtualMachine.setStatus(status);
+        findById(id);
     }
 }
