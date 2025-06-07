@@ -1,7 +1,8 @@
 package com.exam.virtual_machine.service;
 
-import com.exam.virtual_machine.dto.VirtualMachineRequestDTO;
+import com.exam.virtual_machine.dto.VirtualMachineUpdateDTO;
 import com.exam.virtual_machine.entity.VirtualMachine;
+import com.exam.virtual_machine.enums.Status;
 import com.exam.virtual_machine.repository.VirtualMachineRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,21 +27,24 @@ public class VirtualMachineService {
         return virtualMachineRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 
-    public void update(Long id, VirtualMachineRequestDTO newMachine) {
-        final VirtualMachine virtualMachineFound = findById(id);
-        final VirtualMachine virtualMachineUpdated = VirtualMachine.builder()
-                .id(virtualMachineFound.getId())
-                .name(newMachine.getName())
-                .cpu(newMachine.getCpu())
-                .memory(newMachine.getMemory())
-                .disc(newMachine.getDisc())
-                .createdAt(virtualMachineFound.getCreatedAt())
-                .build();
+    public void update(VirtualMachine virtualMachine, Status status) {
+        final VirtualMachine virtualMachineFound = findById(virtualMachine.getId());
+        virtualMachineFound.setName(virtualMachine.getName());
+        virtualMachineFound.setCpu(virtualMachine.getCpu());
+        virtualMachineFound.setMemory(virtualMachine.getMemory());
+        virtualMachineFound.setDisc(virtualMachine.getDisc());
 
-        virtualMachineRepository.save(virtualMachineUpdated);
+        updateStatus(virtualMachineFound.getId(), status);
+
+        virtualMachineRepository.save(virtualMachineFound);
     }
 
     public void delete(Long id) {
         virtualMachineRepository.deleteById(id);
+    }
+
+    public void updateStatus(Long id, Status status) {
+        final VirtualMachine virtualMachine = findById(id);
+        virtualMachine.setStatus(status);
     }
 }

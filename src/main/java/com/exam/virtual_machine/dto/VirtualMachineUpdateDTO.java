@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class VirtualMachineRequestDTO {
+public class VirtualMachineUpdateDTO {
 
     @NotBlank
     @Size(min = 5)
@@ -30,4 +30,7 @@ public class VirtualMachineRequestDTO {
     @NotNull
     @Min(value = 1)
     private Integer disc;
+
+    @NotNull
+    private String status;
 }

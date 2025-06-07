@@ -1,5 +1,6 @@
 package com.exam.virtual_machine.entity;
 
+import com.exam.virtual_machine.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,4 +34,8 @@ public class VirtualMachine {
 
     @Column(name="created_at")
     private LocalDateTime createdAt;
+
+    @Column(name="status")
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }

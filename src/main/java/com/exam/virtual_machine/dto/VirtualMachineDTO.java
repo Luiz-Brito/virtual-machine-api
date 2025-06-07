@@ -17,5 +17,6 @@ public class VirtualMachineDTO {
     private Integer cpu;
     private Integer memory;
     private Integer disc;
+    private String status;
     private LocalDateTime createdAt;
 }
