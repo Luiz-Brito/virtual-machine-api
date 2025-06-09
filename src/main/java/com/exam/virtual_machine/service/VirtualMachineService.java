@@ -5,6 +5,7 @@ import com.exam.virtual_machine.enums.Status;
 import com.exam.virtual_machine.exceptions.VirtualMachineNotFound;
 import com.exam.virtual_machine.repository.VirtualMachineRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class VirtualMachineService {
     }
 
     public List<VirtualMachine> findAll() {
-        return virtualMachineRepository.findAll();
+        return virtualMachineRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
     }
 
     public VirtualMachine findById(Long id) {
@@ -39,6 +40,6 @@ public class VirtualMachineService {
     }
 
     public void delete(Long id) {
-        findById(id);
+        virtualMachineRepository.deleteById(id);
     }
 }
