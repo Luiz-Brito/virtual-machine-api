@@ -34,15 +34,19 @@ Before running the project, you need to have installed:
 
 ---
 
-## Configuration
+## Environment Configuration
+
+This project uses environment variables to store sensitive information.
 
 the src/main/resources/application.properties file of your Spring Boot project, add:
 
-```spring.datasource.url=jdbc:postgresql://localhost:5432/my-database
+```
+spring.datasource.url=jdbc:postgresql://localhost:5432/my-database
 spring.datasource.username=my-user
 spring.datasource.password=my-password
 spring.datasource.driver-class-name=org.postgresql.Driver
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-spring.jpa.hibernate.ddl-auto=update```
+spring.jpa.hibernate.ddl-auto=update
+```
 
 
