@@ -49,4 +49,9 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 spring.jpa.hibernate.ddl-auto=update
 ```
 
+## API Swagger - Spring Boot
 
+This project uses Swagger UI to document and test API endpoints interactively using Springdoc OpenAPI.
+
+With the api running locally access:
+```http://localhost:8080/swagger-ui/index.html```
